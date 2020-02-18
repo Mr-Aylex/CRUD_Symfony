@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+<div>
+    <h4>Vous êtes dans l'inventaire des taches</h4>
+</div>
+<div class="col-9">
+    <a class="btn btn-success" href="{{path('nouvelle_tache')}}">Nouvelle tache</a>
+    
+</div>
+<div class="col-3">
+    <a class="btn bg-info border" href="">Trier par date</a>
+    {% for tache in taches %}
+    <div class="col-auto">
+        <h2>{{tache.titre}}</h2>
+        <div>{{tache.description}}</div>
+        <div>{{tache.statut}}</div>
+    </div>
+    <div>
+        <tr>
+            <td>
+                <a class="btn btn-secondary" href="{{path('modif_personnages',{'id' : tache.id})}}">Modfier</a>
+                <form style="display:inline-block" method="POST" action="{{path('suppression',{'id' : tache.id})}}" onsubmit="return confirm('Confirmer la suppression ?')">
+                    <input type="submit" class="btn btn-danger" value="Supprimer">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ tache.id)}}">
+                </form>
+            </td>
+        </tr>
+    </div>
+        
+    {% endfor %}
+</div>
+
+{% endblock %}

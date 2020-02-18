@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tache formulaire{% endblock %}
+
+{% block body %}
+{% if ismodification %}
+    <div>
+        <h4>Vous êtes dans le formulaire pour modifier la tache</h4>
+    </div>
+{% else %}
+<h4>Vous êtes dans le formulaire pour ajouter une tache</h4>
+{% endif %}
+
+{{form_start(form)}}
+<div class="row">
+    <div class="col-6">
+        <div>
+            {{ form_row(form.titre, {"attr" : {'class':'text-danger'},"label":"Titre"})}}
+        </div>
+    </div>
+    <div class="col-6">
+        {{form_widget(form)}}
+    </div>
+</div>
+    
+    <input type="submit" class="btn btn-primary">
+{{form_end(form)}}
+
+{% endblock %}
