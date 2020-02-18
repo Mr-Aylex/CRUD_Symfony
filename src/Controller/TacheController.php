@@ -17,17 +17,29 @@ class TacheController extends AbstractController
     public function home()
     {
         $repository = $this->getDoctrine()->getRepository(Tache::class);
-        $tache = $repository->findAll();
+        $tache = $repository->findAll(['date_creation' => 'ASC']);
         return $this->render('tache/homes.html.twig',[
-            "taches" => $tache,
-            'navbar' => true
+            "taches" => $tache
+        ]);
+    }
+    /**
+     * @Route("/trie", name="trie")
+     */
+    public function tacheTrier()
+    {
+        $repository = $this->getDoctrine()->getRepository(Tache::class);
+        $tache = $repository->findBy(
+            [],
+            ['date_creation' => 'ASC']);
+        return $this->render('tache/tache_trié.html.twig',[
+            "taches" => $tache
         ]);
     }
     /**
      * @Route("/nouveau_perso", name="nouvelle_tache")
-     * @Route("/modif/{id}", name="modif_personnages" , methods = "GET|POST")
+     * @Route("/modif/{id}", name="modif_tache" , methods = "GET|POST")
      */
-    public function Ajout_modif_personnages(Tache $tache = null, Request $request, EntityManagerInterface $entityManagerInterface)
+    public function Ajout_modif_tache(Tache $tache = null, Request $request, EntityManagerInterface $entityManagerInterface)
     {
         if(!$tache)
         {

@@ -23,8 +23,7 @@ class TacheType extends AbstractType
                 ]
             ])
             ->add('date_creation', DateType::class, [
-                'widget' => 'choice',
-                'input' => 'datetime_immutable'
+                'widget' => 'choice'
             ])
         ;
     }

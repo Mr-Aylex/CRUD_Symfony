@@ -33,9 +33,9 @@ class Tache
     private $statut;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date", nullable=false)
      */
-    private $date_creation;
+    public $date_creation;
 
     public function getId(): ?int
     {
