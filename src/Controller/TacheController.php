@@ -36,13 +36,17 @@ class TacheController extends AbstractController
         {
             $tache = $repository->findBy(
                 [],
-                ['date_creation' => $trie]);
+                ['date_creation' => $trie]
+            );
         }
         else
         {
             $tache = $repository->findBy(
                 ['statut' => $filtre],
-                ['date_creation' => 'ASC']// Il y a un bug quand je met DESC pour descendant à l'emplacement de ASC j'ai message d'erreur
+                ['date_creation' => $trie]/* Quand la variable $trie est utiliser pour choisir l'ordre de trie j'ai ce message d'erreur:
+                 'Invalid order by orientation specified for App\Entity\Tache#date_creation' cependant quand je met la valeur 'DESC' ou 'ASC'
+                  à la main dans le code cela fonctionne*/
+
             );
         }
         return $this->render('tache/homes.html.twig',[
