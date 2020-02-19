@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+<div>
+    <h4>Vous êtes dans l'inventaire des taches</h4>
+</div>
+<div class="col-9">
+    <a class="btn btn-success" href="{{path('nouvelle_tache')}}">Nouvelle tache</a>
+    
+</div>
+<div class="col-3">
+    <p>zaez</p>
+    {{a}}
+</div>
+
+{% endblock %}

@@ -17,22 +17,38 @@ class TacheController extends AbstractController
     public function home()
     {
         $repository = $this->getDoctrine()->getRepository(Tache::class);
-        $tache = $repository->findAll(['date_creation' => 'ASC']);
+        $tache = $repository->findby([],['date_creation' => 'ASC']);
         return $this->render('tache/homes.html.twig',[
-            "taches" => $tache
+            "taches" => $tache,
+            "option" => $filtre = null,
+            "option_date" =>  $trie = 'ASC'
         ]);
     }
     /**
      * @Route("/trie", name="trie")
      */
-    public function tacheTrier()
+    public function tacheTrier(Request $request, $trie = null, $filtre = null )
     {
         $repository = $this->getDoctrine()->getRepository(Tache::class);
-        $tache = $repository->findBy(
-            [],
-            ['date_creation' => 'ASC']);
-        return $this->render('tache/tache_trié.html.twig',[
-            "taches" => $tache
+        $filtre = $request->get('filtre');
+        $trie = $request->get('ordre');
+        if($filtre === null)
+        {
+            $tache = $repository->findBy(
+                [],
+                ['date_creation' => $trie]);
+        }
+        else
+        {
+            $tache = $repository->findBy(
+                ['statut' => $filtre],
+                ['date_creation' => 'ASC']// Il y a un bug quand je met DESC pour descendant à l'emplacement de ASC j'ai message d'erreur
+            );
+        }
+        return $this->render('tache/homes.html.twig',[
+            "taches" => $tache,
+            "option" => $filtre,
+            "option_date" =>  $trie
         ]);
     }
     /**
