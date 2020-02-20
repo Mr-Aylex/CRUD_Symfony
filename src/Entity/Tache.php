@@ -33,9 +33,14 @@ class Tache
     private $statut;
 
     /**
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     public $date_creation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    public $mise_a_jour;
 
     public function getId(): ?int
     {
@@ -86,6 +91,18 @@ class Tache
     public function setDateCreation(?\DateTimeInterface $date_creation): self
     {
         $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getMiseAJour(): ?\DateTimeInterface
+    {
+        return $this->mise_a_jour;
+    }
+
+    public function setMiseAJour(?\DateTimeInterface $mise_a_jour): self
+    {
+        $this->mise_a_jour = $mise_a_jour;
 
         return $this;
     }

@@ -8,58 +8,58 @@
         {{message}}
     </div>
 {% endfor %}
-<div>
-    <h4>Vous êtes dans l'inventaire des taches</h4>
-</div>
-<div class="col-9">
-    <a class="btn btn-success" href="{{path('nouvelle_tache')}}">Nouvelle tache</a>
-    
-</div>
-<div class="col-3">
-    <form method="POST" action="{{ path('trie') }}">
-        <select name="ordre" id="">
-            <option value="DESC"{% if option_date == 'DESC' %} selected {% endif %}>du + au -</option>
-            <option value="ASC"{% if option_date == 'ASC' %} selected {% endif %}>du - au +</option>
-            <input class="btn bg-info border" type="submit" value="Trier par date">
-        </select>
-        
-    </form>
-    <form action="{{ path('trie') }}" method="POST">
-        <select name="filtre" id="">
-            
-            <option value="Terminer" {% if option == 'Terminer' %} selected {% endif %}>Terminer</option>
-            
-            
-            <option value="En cour"{% if option == 'En cour' %} selected {% endif %}>En cour</option>
-            
-            
-            <option value="à faire" {% if option  == 'à faire' %} selected {% endif %}>à faire</option>
-            
-        </select>
-        <input type="submit" value="filtrer">
-        
-    </form>
-    {% for tache in taches %}
-    <div class="col-auto">
-        <h2>{{tache.titre}}</h2>
-        <div>{{tache.description}}</div>
-        <div>{{tache.statut}}</div>
-        <div>{{tache.date_creation|date('d/m/y')}}</div>
-    </div>
     <div>
-        <tr>
-            <td>
-                <a class="btn btn-secondary" href="{{path('modif_tache',{'id' : tache.id})}}">Modfier</a>
-                <form style="display:inline-block" method="POST" action="{{path('suppression',{'id' : tache.id})}}" onsubmit="return confirm('Confirmer la suppression ?')">
-                    <input type="submit" class="btn btn-danger" value="Supprimer">
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ tache.id)}}">
-                </form>
-            </td>
-        </tr>
+        <h4>Vous êtes dans l'inventaire des taches</h4>
     </div>
-        
-    {% endfor %}
-</div>
-
+    <div class="col-9">
+        <a class="btn btn-success" href="{{path('nouvelle_tache')}}">Nouvelle tache</a>
+        <a class="btn btn-dark" href="{{path('home')}}">Retirer les filtres</a>
+    </div>
+    <div class="col-3">
+        <form method="POST" action="{{ path('trie') }}">
+            <select name="ordre" id="">
+                <option value="DESC"{% if option_date == 'DESC' %} selected {% endif %}>du + au -</option>
+                <option value="ASC"{% if option_date == 'ASC' %} selected {% endif %}>du - au +</option>
+                <input class="btn bg-info border" type="submit" value="Trier par date">
+            </select>
+            
+        </form>
+        <form action="{{ path('trie') }}" method="POST">
+            <select name="filtre" id="">
+                
+                <option value="Terminer" {% if option == 'Terminer' %} selected {% endif %}>Terminer</option>
+                
+                
+                <option value="En cour"{% if option == 'En cour' %} selected {% endif %}>En cour</option>
+                
+                
+                <option value="à faire" {% if option  == 'à faire' %} selected {% endif %}>à faire</option>
+                
+            </select>
+            <input class="btn bg-info border" type="submit" value="filtrer">
+            
+        </form>
+        {% for tache in taches %}
+        <div class="col-auto">
+            <h2>{{tache.titre}}</h2>
+            <div>Description: {{tache.description}}</div>
+            <div>Statut: {{tache.statut}}</div>
+            <div>Crée le: {{tache.date_creation|date('d/m/y H:i:s')}}</div>
+            <div>Mise à jour le: {{tache.mise_a_jour|date('d/m/y H:i:s')}}</div>
+        </div>
+        <div>
+            <tr>
+                <td>
+                    <a class="btn btn-secondary" href="{{path('modif_tache',{'id' : tache.id})}}">Modfier</a>
+                    <form style="display:inline-block" method="POST" action="{{path('suppression',{'id' : tache.id})}}" onsubmit="return confirm('Confirmer la suppression ?')">
+                        <input type="submit" class="btn btn-danger" value="Supprimer">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ tache.id)}}">
+                    </form>
+                </td>
+            </tr>
+        </div>
+            
+        {% endfor %}
+    </div>
 {% endblock %}

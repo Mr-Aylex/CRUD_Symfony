@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Tache;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 class TacheType extends AbstractType
 {
@@ -22,7 +24,10 @@ class TacheType extends AbstractType
                     'à faire' => 'à faire'
                 ]
             ])
-            ->add('date_creation', DateType::class, [
+            ->add('date_creation', DateTimeType::class, [
+                'widget' => 'choice'
+            ])
+            ->add('mise_a_jour',DateTimeType::class, [
                 'widget' => 'choice'
             ])
         ;
