@@ -3,11 +3,14 @@
 {% block title %}Menu{% endblock %}
 
 {% block body %}
+<!--Affichage des messages de confirmation-->
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{message}}
     </div>
 {% endfor %}
+<!-- Fin affichage des messages de confirmation-->
+<!-- Affichages des different formulaire pour les filtres-->
     <div>
         <h4>Vous êtes dans l'inventaire des taches</h4>
     </div>
@@ -39,6 +42,8 @@
             <input class="btn bg-info border" type="submit" value="filtrer">
             
         </form>
+<!-- Fin affichages des different formulaire pour les filtres-->
+<!-- Affichage des taches -->
         {% for tache in taches %}
         <div class="col-auto">
             <h2>{{tache.titre}}</h2>
@@ -62,4 +67,5 @@
             
         {% endfor %}
     </div>
+<!-- Fin affichage des taches -->
 {% endblock %}
