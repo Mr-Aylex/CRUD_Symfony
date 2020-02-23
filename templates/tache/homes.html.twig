@@ -19,7 +19,7 @@
         <a class="btn btn-dark" href="{{path('home')}}">Retirer les filtres</a>
     </div>
     <div class="col-3">
-        <form method="POST" action="{{ path('trie') }}">
+        <form method="POST" action="{{ path('tri') }}">
             <select name="ordre" id="">
                 <option value="DESC"{% if option_date == 'DESC' %} selected {% endif %}>du + au -</option>
                 <option value="ASC"{% if option_date == 'ASC' %} selected {% endif %}>du - au +</option>
@@ -27,7 +27,7 @@
             </select>
             
         </form>
-        <form action="{{ path('trie') }}" method="POST">
+        <form action="{{ path('tri') }}" method="POST">
             <select name="filtre" id="">
                 
                 <option value="Terminer" {% if option == 'Terminer' %} selected {% endif %}>Terminer</option>

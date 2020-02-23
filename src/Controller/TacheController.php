@@ -22,28 +22,28 @@ class TacheController extends AbstractController
         return $this->render('tache/homes.html.twig',[
             "taches" => $tache,
             "option" => $filtre = null,//aucun filtre par default
-            "option_date" =>  $trie = 'ASC'//on met par default le l'ordre croissant selectioner
+            "option_date" =>  $tri = 'ASC'//on met par default le l'ordre croissant selectioner
         ]);
     }
     //route pour trier les taches
     /**
-     * @Route("/trie", name="trie")
+     * @Route("/tri", name="tri")
      */
-    public function tacheTrier(Request $request, $trie = 'ASC', $filtre = null )
+    public function tacheTrier(Request $request, $tri = 'ASC', $filtre = null )
     {
         $repository = $this->getDoctrine()->getRepository(Tache::class);
         $filtre = $request->get('filtre');//on recupère la valeur filtre envoyer par le POST 
-        $trie = $request->get('ordre');//on recupère la valeur ordre envoyer par le POST
+        $tri = $request->get('ordre');//on recupère la valeur ordre envoyer par le POST
         if($filtre === null)//Si il n'y pas de filtre alors
         {
             $tache = $repository->findBy(
                 [],//sans filtre
-                ['date_creation' => $trie]//on filre par date de création ASC
+                ['date_creation' => $tri]//on filre par date de création ASC
             );
         }
         else//si il y a des filtres
         {
-            if($trie == 'ASC')
+            if($tri == 'ASC')
             {
                 $tache = $repository->findBy(
                     ['statut' => $filtre],//on filtre par le statut
@@ -59,7 +59,7 @@ class TacheController extends AbstractController
             }
             // $tache = $repository->findBy(
             //     ['statut' => $filtre],
-            //     ['date_creation' => $trie]/* Quand la variable $trie est utiliser pour choisir l'ordre de trie j'ai ce message d'erreur:
+            //     ['date_creation' => $tri]/* Quand la variable $tri est utiliser pour choisir l'ordre de tri j'ai ce message d'erreur:
             //      'Invalid order by orientation specified for App\Entity\Tache#date_creation' cependant quand je met la valeur 'DESC' ou 'ASC'
             //       à la main dans le code cela fonctionne*/
 
@@ -68,7 +68,7 @@ class TacheController extends AbstractController
         return $this->render('tache/homes.html.twig',[//on applique les filtres et les tries dans la page
             "taches" => $tache,
             "option" => $filtre,//variable qui met l'élement selectioné précédement en selected
-            "option_date" =>  $trie//variable qui met l'élement selectioné précédement en selected
+            "option_date" =>  $tri//variable qui met l'élement selectioné précédement en selected
         ]);
     }
     /*
